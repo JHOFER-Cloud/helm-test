@@ -1,0 +1,40 @@
+name: Deploy Test Apache
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-apache-manifests:
+    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v2.0.4
+    with:
+      helm-ci_image_tag: 2.0.4
+      app_name: test-apache
+      custom_deployment: true
+      values_path: manifests
+      vault_url: https://vault.dev.k8.hla1.jhofer.lan
+      vault_base_path: talos
+    secrets:
+      KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_DEV }}
+      VAULT_TOKEN: ${{ secrets.HLA1_VAULT }}
+  test-apache:
+    needs: test-apache-manifests
+    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v2.0.4
+    with:
+      helm-ci_image_tag: 2.0.4
+      app_name: test-apache
+      helm_repository: oci://registry-1.docker.io/bitnamicharts
+      helm_chart: apache
+      helm_version: 11.3.2
+      values_path: helm/values
+      ##TODO:
+      # live_domain: jhofer.org ## As example; If not set fallback to internal_domain
+      # live_domain: ["live.k8.hla1.jhofer.lan", "hla1.jhofer.lan"] ## Multiple live/dev domains
+      # live_acme: true ## Letsencrypt; false or not set = dev_acme
+      # live_acme_email: admin@jhofer.de
+      # dev_acme: https://pki.jhofer.lan/directory
+      dev_domain: dev.k8.hla1.jhofer.lan
+      # root_ca: "http://pki.jhofer.lan/certs/root-ca.pem"
+      # test_url_path: "dashboard/#/"
+      pr_deployments: false
+    secrets:
+      KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_DEV }}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "baseBranches": ["dev"],
+  "dependencyDashboard": false,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
+      "matchStrings": ["helm_version:\\s*(?<currentValue>[0-9][.0-9]*)"],
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://charts.bitnami.com/bitnami",
+      "depNameTemplate": "apache"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
+      "matchStrings": [
+        "helm-ci/.github/workflows/.*@v(?<currentValue>\\d+\\.\\d+\\.\\d+)",
+        "helm-ci_image_tag:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "JHOFER-Cloud/helm-ci",
+      "datasourceTemplate": "github-tags"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["apache"],
+      "reviewers": ["ojsef39"]
+    },
+    {
+      "matchDatasources": ["github-tags"],
+      "matchPackageNames": ["JHOFER-Cloud/helm-ci"],
+      "reviewers": ["ojsef39"]
+    }
+  ]
+}
