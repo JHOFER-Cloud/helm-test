@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+      - dev
+
 jobs:
   test-apache-manifests:
     uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v3.0.0-dev.1
@@ -14,6 +16,7 @@ jobs:
       vault_url: https://vault.dev.k8.hla1.jhofer.lan
       vault_base_path: talos
     secrets:
+      KUBE_CONFIG_DEV: ${{ secrets.KUBE_CONFIG_DEV }}
       KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_DEV }}
       VAULT_TOKEN: ${{ secrets.HLA1_VAULT }}
   test-apache:
@@ -26,16 +29,12 @@ jobs:
       helm_chart: apache
       helm_version: 11.3.2
       values_path: helm/values
-      ##TODO:
-      # live_domain: jhofer.org ## As example; If not set fallback to internal_domain
-      # live_domain: ["live.k8.hla1.jhofer.lan", "hla1.jhofer.lan"] ## Multiple live/dev domains
-      # live_acme: true ## Letsencrypt; false or not set = dev_acme
-      # live_acme_email: admin@jhofer.de
-      # dev_acme: https://pki.jhofer.lan/directory
+      live_domains: live.k8.hla1.jhofer.lan, live.hla1.jhofer.lan
       dev_domains: dev.k8.hla1.jhofer.lan, dev.hla1.jhofer.lan
       domain_template: bitnami
       # root_ca: "http://pki.jhofer.lan/certs/root-ca.pem"
       # test_url_path: "dashboard/#/"
       pr_deployments: false
     secrets:
+      KUBE_CONFIG_DEV: ${{ secrets.KUBE_CONFIG_DEV }}
       KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_DEV }}
