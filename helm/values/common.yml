@@ -4,4 +4,3 @@ ingress:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: labca
-  hostname: test-apache.dev.k8.hla1.jhofer.lan
