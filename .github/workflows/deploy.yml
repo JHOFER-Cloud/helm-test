@@ -24,7 +24,7 @@ jobs:
       app_name: test-apache
       helm_repository: oci://registry-1.docker.io/bitnamicharts
       helm_chart: apache
-      helm_version: 11.3.2
+      helm_version: 11.3.4
       values_path: helm/values
       ##TODO:
       # live_domain: jhofer.org ## As example; If not set fallback to internal_domain
