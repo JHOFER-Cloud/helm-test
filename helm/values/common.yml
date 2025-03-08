@@ -4,3 +4,4 @@ ingress:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: labca
+    traefik.ingress.kubernetes.io/router.middlewares: internal-only@file
