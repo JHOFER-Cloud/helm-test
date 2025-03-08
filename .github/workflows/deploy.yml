@@ -17,7 +17,7 @@ jobs:
       vault_base_path: talos
     secrets:
       KUBE_CONFIG_DEV: ${{ secrets.KUBE_CONFIG_DEV }}
-      KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_DEV }}
+      KUBE_CONFIG_LIVE: ${{ secrets.KUBE_CONFIG_LIVE }}
       VAULT_TOKEN: ${{ secrets.HLA1_VAULT }}
   test-apache:
     needs: test-apache-manifests
