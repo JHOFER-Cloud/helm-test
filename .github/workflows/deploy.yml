@@ -7,9 +7,9 @@ on:
 
 jobs:
   test-apache-manifests:
-    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v3.1.1
+    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v3.1.2
     with:
-      helm-ci_image_tag: 3.1.1
+      helm-ci_image_tag: 3.1.2
       app_name: test-apache
       custom_deployment: true
       values_path: manifests
@@ -21,9 +21,9 @@ jobs:
       VAULT_TOKEN: ${{ secrets.HLA1_VAULT }}
   test-apache:
     needs: test-apache-manifests
-    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v3.1.1
+    uses: JHOFER-Cloud/helm-ci/.github/workflows/k8s-deploy-template.yml@v3.1.2
     with:
-      helm-ci_image_tag: 3.1.1
+      helm-ci_image_tag: 3.1.2
       app_name: test-apache
       helm_repository: oci://registry-1.docker.io/bitnamicharts
       helm_chart: apache
