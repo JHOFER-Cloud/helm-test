@@ -6,15 +6,6 @@ on:
       - dev
   # Allow manual triggering
   workflow_dispatch:
-    inputs:
-      deploy_environment:
-        description: "Deploy to"
-        required: true
-        default: "Development"
-        type: choice
-        options:
-          - Development
-          - Production
 
 jobs:
   test-apache-manifests:
